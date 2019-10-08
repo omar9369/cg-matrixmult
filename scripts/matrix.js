@@ -18,6 +18,7 @@ class Matrix {
         if (v instanceof Array && v.length === this.rows && 
             v[0] instanceof Array && v[0].length === this.columns) {
             this.data = v;
+            
         }
         // not valid
         else {
@@ -32,9 +33,22 @@ class Matrix {
     // matrix multiplication (this * rhs)
     mult(rhs) {
         var result = null;
-        // ensure multiplication is valid
+        var mul = 0;
+        var add = 0;
+        var other_mul = 0;
         if (rhs instanceof Matrix && this.columns === rhs.rows) {
-            // implement matrix multiplication here!
+            result = new Matrix(this.data.length, rhs.data[0].length);
+            for(var r = 0; r < rhs.data[0].length; r++){
+                for(var i = 0; i < this.data.length; i++){
+                    add = 0;
+                    for(var k = 0; k < rhs.data.length; k++){
+                        mul = rhs.data[k][r] * this.data[i][k];
+                        add = add + mul
+                        result.values[i][r] = add;
+                    }
+                }
+
+            }
         }
         else {
             console.log("could not multiply - row/column mismatch");
